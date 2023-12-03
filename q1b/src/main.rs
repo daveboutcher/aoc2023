@@ -8,37 +8,21 @@ fn read_input() -> Vec<String> {
         .collect()  // gather them together into a vector
 }
 
-fn number_substitute(mut s: String) -> String {
-    let subs = [
-        ("one", "1"),
-        ("two", "2"),
-        ("three", "3"),
-        ("four", "4"),
-        ("five", "5"),
-        ("six", "6"),
-        ("seven", "7"),
-        ("eight", "8"),
-        ("nine", "9")
-            ];
-
-    while let Some(rep) = 
-    subs
-        .iter()
-        .map(|m| (s.find(m.0), m.0, m.1))
-        .filter(|s| s.0.is_some())
-        .min()
-         {
-            s = s.replace(rep.1, rep.2);
-        }
-
-    s
-}
 
 fn solve() -> u32 {
     let lines = read_input();
     lines
     .iter()
-    .map(|l| number_substitute(l.clone())
+    .map(|l| l
+        .replace("one","o1e")
+        .replace("two","t2o")
+        .replace("three","t3e")
+        .replace("four","f4r")
+        .replace("five","f5e")
+        .replace("six","s6x")
+        .replace("seven","s7n")
+        .replace("eight","e8t")
+        .replace("nine","n9e")
         .chars()
         .filter_map(|c| c.to_digit(10))
         .collect()
