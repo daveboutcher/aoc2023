@@ -1,27 +1,21 @@
 use std::fs::read_to_string;
 
 fn read_input() -> Vec<String> {
-    read_to_string("input.txt") 
-        .unwrap()  // panic on possible file-reading errors
-        .lines()  // split the string into an iterator of string slices
-        .map(String::from)  // make each slice into a string
-        .collect()  // gather them together into a vector
+    read_to_string("input.txt")
+        .unwrap() // panic on possible file-reading errors
+        .lines() // split the string into an iterator of string slices
+        .map(String::from) // make each slice into a string
+        .collect() // gather them together into a vector
 }
-
 
 fn solve() -> u32 {
     let lines = read_input();
     lines
-    .iter()
-    .map(|l| l
-        .chars()
-        .filter_map(|c| c.to_digit(10))
-        .collect()
-    )
-    .map(|v:Vec<u32>| v[0]*10 + v.last().unwrap())
-    .sum()
+        .iter()
+        .map(|l| l.chars().filter_map(|c| c.to_digit(10)).collect())
+        .map(|v: Vec<u32>| v[0] * 10 + v.last().unwrap())
+        .sum()
 }
-
 
 fn main() {
     println!("Solution: {}", solve())
