@@ -1,3 +1,4 @@
+use std::collections::BinaryHeap;
 use std::fs::read_to_string;
 
 fn read_input() -> Vec<String> {
@@ -9,7 +10,7 @@ fn read_input() -> Vec<String> {
 }
 
 fn solve() -> usize {
-    let mut hands = read_input()
+    read_input()
         .iter()
         .map(|line| {
             line.replace("A", "Z")
@@ -72,32 +73,26 @@ fn solve() -> usize {
         })
         .map(|(hand, hand2, bid, max1)| {
             (
-                max1.0 *10 +
-                hand2
-                    .chars()
-                    .map(|c| {
+                max1.0 * 10
+                    + hand2
+                        .chars()
+                        .map(|c| {
                             hand2
                                 .chars()
                                 .filter(|c1| ((c == *c1) && (c != max1.1)))
                                 .count()
-                        
-                    })
-                    .max()
-                    .unwrap(),
-                    hand.clone(),
-                    bid
+                        })
+                        .max()
+                        .unwrap(),
+                hand.clone(),
+                bid,
             )
         })
-        .collect::<Vec<_>>();
-
-    // Note: we SHOULD be able to collet this into a BinaryHeap her and skip the sort part, but I can't get that to work...
-
-    hands.sort();
-
-    hands
+        .collect::<BinaryHeap<_>>()
+        .into_sorted_vec()
         .iter()
         .enumerate()
-        .map(|(i, (_score, _hand, bid))| (i+1)*bid)
+        .map(|(i, (_score, _hand, bid))| (i + 1) * bid)
         .sum()
 }
 

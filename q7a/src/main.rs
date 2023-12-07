@@ -10,7 +10,7 @@ fn read_input() -> Vec<String> {
 }
 
 fn solve() -> usize {
-    let mut hands = read_input()
+    read_input()
         .iter()
         .map(|line| {
             line.replace("A", "Z")
@@ -46,11 +46,8 @@ fn solve() -> usize {
                 bid,
             )
         })
-        .collect::<Vec<_>>();
-
-    hands.sort();
-
-    hands
+        .collect::<BinaryHeap<_>>()
+        .into_sorted_vec()
         .iter()
         .enumerate()
         .map(|(i, (_score, _hand, bid))| (i + 1) * bid)
