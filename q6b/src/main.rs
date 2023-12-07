@@ -21,6 +21,14 @@ fn solve() -> isize {
     .zip(re
         .captures_iter(&lines[1].replace(" ",""))
         .map(|c| c.get(1).unwrap().as_str().parse::<isize>().unwrap()))
+        //
+        // I have to comment this, or I will never remember it
+        // 
+        // This solution is a classic quadratic equation, starting with the problem
+        // ((time - wait_time) * time) > distance
+        // which evaluates to 
+        // time² - wait_time*time - distance > 0
+        // which we then solve for
     .map(|(time, distance)| time + 1 - ((((((time*time-4*distance) as f64).sqrt() - time as f64) / -2.0f64) + 0.0000001f64).ceil() as isize) * 2)
     .product()
  }
