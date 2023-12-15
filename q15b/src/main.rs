@@ -35,15 +35,14 @@ fn solve() -> usize {
 
                     let val: usize = pieces[1].parse::<usize>().unwrap();
 
-                    let mut found: bool = false;
-                    for t in boxes[boxnum].iter_mut() {
+                    if !boxes[boxnum].iter_mut().any(|t| {
                         if t.0 == label {
                             t.1 = val;
-                            found = true;
+                            true
+                        } else {
+                            false
                         }
-                    }
-
-                    if !found {
+                    }) {
                         boxes[boxnum].push((label.to_string(), val));
                     }
 
