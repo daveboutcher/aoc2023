@@ -86,18 +86,13 @@ fn solve() -> usize {
     while let Some(state) = todo.pop_front() {
         if state.pos.x as usize == map[0].len() - 2 && state.pos.y as usize == map.len() - 1 {
             let pathlen = pathlen(state.borrow());
-            println!("Found a solution with length {}", pathlen);
             maxpath = cmp::max(maxpath, pathlen);
             continue;
         }
 
         match map[state.pos.y as usize][state.pos.x as usize] {
             '#' => continue,
-            '>' => add_state(&mut todo, state.pos.x+1, state.pos.y, &state),
-            '<' => add_state(&mut todo, state.pos.x-1, state.pos.y, &state),
-            '^' => add_state(&mut todo, state.pos.x, state.pos.y-1, &state),
-            'v' => add_state(&mut todo, state.pos.x, state.pos.y+1, &state),
-            '.' => {
+            '.' | '>' | '<' | '^' | 'v' => {
                 add_state(&mut todo, state.pos.x+1, state.pos.y, &state);
                 add_state(&mut todo, state.pos.x-1, state.pos.y, &state);
                 add_state(&mut todo, state.pos.x, state.pos.y+1, &state);
